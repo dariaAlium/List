@@ -5,11 +5,13 @@ using namespace std;
 template <typename Type>
 
 //constractor with parameters (should I do the default constructor?)
-MyList<Type>::MyList() {
+MyList<Type>::MyList(int num) {
 	try {
 		root = (Node<Type>*)malloc(sizeof(Node<Type>));
 		root->item = 0;
 		root->next = NULL;
+		counter = 0;
+		size = 0;
 	}
 	catch (bad_alloc a) {
 		cout << "Memory error";
@@ -20,7 +22,7 @@ MyList<Type>::MyList() {
 
 template <typename Type>
 
-MyList<Type>::MyList(const Node<Type>* node): root(node){}
+MyList<Type>::MyList(const Node<Type>* node) : root(node){}
 
 template <typename Type>
 
@@ -45,39 +47,36 @@ template <typename Type>
 
 //add to the end
 void MyList<Type>::Add_back(Type item) {
-	
-	try {
-		Node<Type>* last = getLast(); //the end of the list
-		Node<Type>* tmp = new Node<Type>; //the new node
+	if (counter < size){
+		try {
 
-		tmp->item = item;
-		tmp->next = NULL;
+			Node<Type>* last = getLast(); //the end of the list
+			Node<Type>* tmp = new Node < Type > ; //the new node
 
-		last->next = tmp;
+			tmp->item = item;
+			tmp->next = NULL;
+
+			last->next = tmp;
+		}
+		catch (bad_alloc a) {
+			cout << "There are no memory";
+			system("pause");
+		}
 	}
-	catch (bad_alloc a) {
-		cout << "There are no memory";
-		system("pause");
+	else{
+
+		cout << "Sorry, there are no memory for it";
 	}
 
 }
 
 template <typename Type>
- 
+
 //delete all nodes with item
 void MyList<Type>::Delete(Type item) {
-	/*
-	cout << root->item;
-	if (root->item == item) { //if we should delete the root 
-		cout<< "dfghjkl;" << endl;
-		while (root->item == item) {
-			root = root->next;
-			cout << "sdfghjkl;"<<endl;
-		}
-	}
-	*/
+
 	Node<Type>* tmp = root;
-	
+
 	int count = 0; //count of nodes
 
 	while (tmp->next != NULL) { //while it's not the end of the list
@@ -88,18 +87,19 @@ void MyList<Type>::Delete(Type item) {
 			free(tmp->next); //delete node
 			tmp->next = add; //restore the list
 			count++;
+			counter--;
 
 		}
 		else {
 			tmp = tmp->next; //next node
 		}
 		if (tmp == NULL) //if we delete prnultimate
-			break; 
+			break;
 
 	}
 
 	if (count == 0)
-		cout << "There are no such element" <<endl;
+		cout << "There are no such element" << endl;
 
 }
 
@@ -108,9 +108,9 @@ template <typename Type>
 //vizualization
 void  MyList<Type>::Print() {
 	Node<Type>* tmp = root->next;
-	cout<<"My list:"<<endl;
+	cout << "My list:" << endl;
 	while (tmp != NULL) {
-		
+
 		cout << tmp->item << endl;
 		tmp = tmp->next;
 	}
@@ -134,9 +134,9 @@ template <typename Type>
 //find first entry of node with item
 Node<Type>* MyList<Type>::Find(Type item) {
 	Node<Type>* tmp = root;
-	
+
 	while (tmp) {
-		
+
 		if (tmp->item == item) {
 			cout << "There is this element" << endl;
 			return tmp;
@@ -144,7 +144,7 @@ Node<Type>* MyList<Type>::Find(Type item) {
 
 		tmp = tmp->next;
 	}
-	
+
 	cout << "There is no such element" << endl;
 	return NULL;
 }
@@ -190,5 +190,3 @@ int main()
 	}
 	return 0;
 }
-
-

@@ -18,16 +18,16 @@ class MyList {
 
 public:
 
-	MyList();
+	MyList(int);
 	MyList(const Node<Type>* node);
 	~MyList();
 
-	Node<Type>* getLast();
-	void Add_back(Type item);
-	void Delete(Type item);
-	void Print();
-	void DeleteList();
-	Node<Type>* Find(Type item);
+	Node<Type>* get_last();
+	void add_back(Type item);
+	void delete_node(Type item);
+	void print();
+	void delete_list();
+	Node<Type>* find(Type item);
 };
 
 

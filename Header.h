@@ -12,15 +12,16 @@ struct Node
 template <typename Type>
 
 class MyList {
-	
+	int counter;
+	int size;
 	Node<Type>* root;
-	
+
 public:
 
 	MyList();
 	MyList(const Node<Type>* node);
 	~MyList();
-	
+
 	Node<Type>* getLast();
 	void Add_back(Type item);
 	void Delete(Type item);

@@ -2,6 +2,30 @@
 #include "Header.h"
 using namespace std;
 
+class binary {
+
+	bool* num;
+
+	binary(char* num, int number_system = 2) {
+		bool sign;
+		if (num[0] == '-') {
+			sign = 1;
+			num = num+1;
+		}
+		else
+			sign = 0;
+		switch(number_system){
+		case 10:
+			int int_number = num - '0';
+
+			break;
+		}
+
+	}
+
+
+};
+
 template <typename Type>
 
 //constractor with parameters (should I do the default constructor?)
